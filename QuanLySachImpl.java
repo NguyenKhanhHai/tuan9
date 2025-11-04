@@ -1,58 +1,62 @@
 import java.util.ArrayList;
+import java.util.List;
 
 public class QuanLySachImpl implements IQuanLySach {
-    private ArrayList<Sach> danhSach;
+    private List<Sach> danhSachSach;
 
     public QuanLySachImpl() {
-        danhSach = new ArrayList<>();
+        danhSachSach = new ArrayList<>();
     }
 
     @Override
     public void themSach(Sach sach) {
-        danhSach.add(sach);
+        danhSachSach.add(sach);
+        System.out.println("-> Đã thêm thành công sách: " + sach.getTieuDe());
     }
 
     @Override
-    public void xoaSach(String maSach) {
-        Sach s = timKiemTheoMa(maSach);
-        if (s != null) {
-            danhSach.remove(s);
-            System.out.println(" Đa xoa sach co ma: " + maSach);
-        } else {
-            System.out.println(" Khong tim thay sach can xoa!");
-        }
-    }
-
-    @Override
-    public void capNhatSach(String maSach, Sach sachMoi) {
-        for (int i = 0; i < danhSach.size(); i++) {
-            if (danhSach.get(i).getMaSach().equalsIgnoreCase(maSach)) {
-                danhSach.set(i, sachMoi);
-                System.out.println(" Đa cap nhat sach co ma: " + maSach);
-                return;
+    public Sach timKiemSach(String maSach) {
+        for (Sach sach : danhSachSach) {
+            if (sach.getMaSach().equalsIgnoreCase(maSach)) {
+                return sach;
             }
-        }
-        System.out.println(" Khong tim thay sach de cap nhat!");
-    }
-
-    @Override
-    public Sach timKiemTheoMa(String maSach) {
-        for (Sach s : danhSach) {
-            if (s.getMaSach().equalsIgnoreCase(maSach)) return s;
         }
         return null;
     }
 
     @Override
-    public void hienThiTatCa() {
-        System.out.println("\n===== DANH SACH SACH =====");
-        if (danhSach.isEmpty()) {
-            System.out.println("Khong co sach nao trong danh sach!");
+    public void xoaSach(String maSach) {
+        Sach sachCanXoa = timKiemSach(maSach);
+        if (sachCanXoa != null) {
+            danhSachSach.remove(sachCanXoa);
+            System.out.println("-> Đã xóa sách có mã: " + maSach);
+        } else {
+            System.out.println("-> Không tìm thấy sách có mã: " + maSach);
+        }
+    }
+
+    @Override
+    public void capNhatSoLuong(String maSach, int soLuongMoi) {
+         Sach sachCanUpdate = timKiemSach(maSach);
+         if(sachCanUpdate != null) {
+             sachCanUpdate.setSoLuong(soLuongMoi);
+             System.out.println("-> Đã cập nhật số lượng cho sách '" + sachCanUpdate.getTieuDe() + "'");
+         } else {
+             System.out.println("-> Không tìm thấy sách có mã: " + maSach);
+         }
+    }
+    
+    @Override
+    public void hienThiDanhSach() {
+        if (danhSachSach.isEmpty()) {
+            System.out.println("Danh sách sách hiện đang trống.");
             return;
         }
-        for (Sach s : danhSach) {
-            System.out.println(s);
-            System.out.println("---------------------------");
+        System.out.println("\n======= DANH SÁCH TẤT CẢ SÁCH =======");
+        for (Sach sach : danhSachSach) {
+            System.out.println("--------------------");
+            System.out.println(sach.toString());
         }
+        System.out.println("======================================");
     }
 }

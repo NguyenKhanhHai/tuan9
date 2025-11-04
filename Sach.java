@@ -1,13 +1,13 @@
-public abstract class Sach implements IGiaBan, IKiemKe {
-    protected String maSach;
-    protected String tieuDe;
-    protected String tacGia;
-    protected int namXuatBan;
-    protected int soLuong;
-    protected double giaCoBan;
+public abstract class Sach implements IGiaBan, KiemKe {
+    private String maSach;
+    private String tieuDe;
+    private String tacGia;
+    private int namXuatBan;
+    private int soLuong;
+    private double giaCoBan;
 
     public Sach() {}
-
+    
     public Sach(String maSach, String tieuDe, String tacGia, int namXuatBan, int soLuong, double giaCoBan) {
         this.maSach = maSach;
         this.tieuDe = tieuDe;
@@ -16,33 +16,27 @@ public abstract class Sach implements IGiaBan, IKiemKe {
         this.soLuong = soLuong;
         this.giaCoBan = giaCoBan;
     }
-
     public String getMaSach() { return maSach; }
+    public void setMaSach(String maSach) { this.maSach = maSach; }
     public String getTieuDe() { return tieuDe; }
+    public void setTieuDe(String tieuDe) { this.tieuDe = tieuDe; }
     public String getTacGia() { return tacGia; }
+    public void setTacGia(String tacGia) { this.tacGia = tacGia; }
     public int getNamXuatBan() { return namXuatBan; }
+    public void setNamXuatBan(int namXuatBan) { this.namXuatBan = namXuatBan; }
     public int getSoLuong() { return soLuong; }
+    public void setSoLuong(int soLuong) { this.soLuong = soLuong; }
     public double getGiaCoBan() { return giaCoBan; }
-
-    public abstract double tinhGiaBan();
-
-    @Override
-    public boolean kiemTraTonKho(int soLuongToiThieu) {
-        return soLuong >= soLuongToiThieu;
-    }
-
-    @Override
-    public void capNhatViTri(String viTriMoi) {
-        System.out.println("Đa chuyen sach '" + tieuDe + "' den khu vuc: " + viTriMoi);
-    }
-
+    public void setGiaCoBan(double giaCoBan) { this.giaCoBan = giaCoBan; }
+    
     @Override
     public String toString() {
-        return "Ma sach: " + maSach +
-               "\nTieu de: " + tieuDe +
-               "\nTac gia: " + tacGia +
-               "\nNam xuat ban: " + namXuatBan +
-               "\nSo luong: " + soLuong +
-               "\nGia co ban " + giaCoBan;
+        return "Mã sách: " + maSach + "\n" +
+               "Tiêu đề: " + tieuDe + "\n" +
+               "Tác giả: " + tacGia + "\n" +
+               "Năm xuất bản: " + namXuatBan + "\n" +
+               "Số lượng: " + soLuong;
     }
+    @Override
+    public abstract double tinhGiaBan();
 }
